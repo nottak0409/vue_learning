@@ -14,34 +14,33 @@
 
         <div class="frame__inner">
             <div id="app">
-                <clock></clock>
-                <clock style="color:blue">現在時刻</clock>
+                <p>{{ number }}</p>
             </div>
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
     <script>
-    Vue.component('clock', {
-        data: function() {
-            return {
-                time: '12:34:56'
-            }
-        },
-        mounted: function() {
-            let timerID = setInterval(this.refresh, 500);
-            this.refresh();
-        },
+    var Util = {
         methods: {
-            refresh: function() {
-                let now = new Date();
-                this.time = `${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}`
+            addZero: function (value) {
+                if(value < 10) {
+                    return '0' + value
+                } else {
+                    return value
+                }
             }
-        },
-        template: '<div :style=""><h2><slot>時計</slot></h2>{{ time }}</div>'
-    })
+        }
+    }
 
     var app = new Vue({
         el: "#app",
+        data: {
+            number: 5
+        },
+        mounted: function() {
+            this.number = this.addZero(this.number)
+        },
+        mixins: [Util]
     });
     </script>
 </body>
