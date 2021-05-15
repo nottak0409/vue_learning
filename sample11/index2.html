@@ -16,7 +16,7 @@
             <div id="app">
                 <input type="number" name="num1" v-model.number="num1" />+
                 <input type="number" name="num2" v-model.number="num2" />=
-                <span>{{ answer }}</span>
+                <span v-if="done">{{ answer }}</span>
             </div>
         </div>
     </div>
@@ -31,6 +31,9 @@
         computed: {
             answer: function() {
                 return this.num1 + this.num2;
+            },
+            done: function() {
+                return (this.num1 !== 0 && this.num2 !== 0);
             }
         }
     });
